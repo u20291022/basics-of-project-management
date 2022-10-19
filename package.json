@@ -1,0 +1,13 @@
+{
+  "name": "basics-of-project-management",
+  "version": "1.0.0",
+  "description": "Project for the discipline \"Fundamentals of project management",
+  "main": "index.ts",
+  "author": "ilunatrius",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@types/node": "^18.11.2",
+    "telegraf": "^4.10.0"
+  }
+}
