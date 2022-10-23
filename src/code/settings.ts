@@ -11,9 +11,10 @@ class Settings {
 
   constructor () {
     fileSystem.createPath(this.settingsDirectoryPath)
+    const settingsPath = this.getSettingsPath()
 
-    if (fileSystem.exists(this.getSettingsPath())) {
-      this.currentSettings = fileSystem.readJsonFile(this.getSettingsPath())
+    if (fileSystem.exists(settingsPath)) {
+      this.currentSettings = fileSystem.readJsonFile(settingsPath)
     } else {
       this.currentSettings = {}
     } 
@@ -28,7 +29,9 @@ class Settings {
   }
 
   public initializeChatSettings = (chatId: number): void => {
-    this.setChatSettings(chatId, this.defaultChatSettings)
+    if (!settings.isChatExists(chatId)) {
+      this.setChatSettings(chatId, this.defaultChatSettings)
+    }
   }
 
   public getChatSettings = (chatId: number): ChatSettings => {

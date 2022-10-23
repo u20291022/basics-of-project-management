@@ -6,28 +6,30 @@ class WeatherAPI {
   readonly apiUrl = "https://api.open-meteo.com/v1/forecast"
 
   public getCurrentWeather = async (latitude: string | number, longitude: string | number): Promise<WeatherData> => {
-    const emptyWeatherData: WeatherData = {
+    let weatherData: WeatherData = {
       temperature: 0,
       windspeed: 0,
       weathercode: 0,
       weathername: ""
     }
+
+    if (latitude !== 0 || longitude !== 0) {
+      const requestUrl = this.apiUrl + `?latitude=${latitude}&longitude=${longitude}&current_weather=true`
+      const response = await axios(requestUrl).catch((error) => logs.write(this.getErrorText(error)))
+  
+      if (response && response.data && response.data.current_weather) {
+        weatherData = response.data.current_weather
+        weatherData.weathername = this.getWeatherName(weatherData.weathercode)
+      }
+    }
     
-    if (latitude === longitude && latitude === 0) {
-      return emptyWeatherData
-    }
-
-    const requestUrl = this.apiUrl + `?latitude=${latitude}&longitude=${longitude}&current_weather=true`
-    const response = await axios(requestUrl).catch((error) => logs.write("Some error occured while weather getting:\n" + error))
-
-    if (!response || !response.data || !response.data.current_weather) {
-      return emptyWeatherData
-    }
-
-    const weatherData: WeatherData = response.data.current_weather
-    weatherData.weathername = this.getWeatherName(weatherData.weathercode)
-
     return weatherData
+  }
+
+  private getErrorText = (error: any): string => {
+    const errorText = "Some error occured while geocode getting:\n" + error
+
+    return errorText
   }
 
   private getWeatherName = (weatherCode: number): string => {
@@ -44,7 +46,6 @@ class WeatherAPI {
     if (weatherCode >= 100 && weatherCode <= 119) return "неизвестно"
     if ((weatherCode >= 140 && weatherCode <= 149) || (weatherCode >= 280 && weatherCode <= 299)) return "осадки"
     if (weatherCode >= 200 && weatherCode <= 239) return "пыль или дымка"
-    if (weatherCode >= 0 && weatherCode <= 3) return "Без осадков"
     return "неизвестно"
   }
 }

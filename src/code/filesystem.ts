@@ -1,8 +1,5 @@
 import { readFileSync, existsSync, writeFileSync, mkdirSync, rmSync } from "fs"
-
-interface Json {
-  [key: string]: any
-}
+import { Json } from "./interfaces"
 
 class FileSystem {
   public exists = (path: string): boolean => {

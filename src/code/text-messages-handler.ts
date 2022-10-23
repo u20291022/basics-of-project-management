@@ -3,8 +3,6 @@ import { Telegram } from "telegraf"
 import { commandsHandler } from "./commands-handler"
 
 class TextMessagesHandler {
-  constructor () {}
-
   private isTextCommand = (text: string): boolean => {
     return text[0] === "/" && (!text.includes("@") || text.includes("@basics_of_project_management_bot"))
   }

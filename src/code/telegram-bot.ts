@@ -15,9 +15,10 @@ export class TelegramBot {
 
   private listenTextMessages = (): void => {
     this.me.on("text", async context => {
-      if (!context || !context.message || !context.message.text) return
-      const message: TextMessage = context.message
-      await textMessagesHandler.handle(message, this.methods)
+      if (context && context.message && context.message.text) {
+        const message: TextMessage = context.message
+        await textMessagesHandler.handle(message, this.methods)
+      }
     })
   }
 

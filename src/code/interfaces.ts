@@ -21,6 +21,21 @@ export interface WeatherData {
 }
 
 export interface GeocodeData {
+  name: string,
   latitude: number,
   longitude: number
+}
+
+export interface CityCommandData {
+  firstName: string,
+  firstArgument: string,
+}
+
+export interface CommandData {
+  command: string,
+  description: string
+}
+
+export interface Json {
+  [key: string]: any
 }
