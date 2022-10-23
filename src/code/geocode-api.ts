@@ -11,7 +11,7 @@ class GeocodeAPI {
     
     const requestUrl = this.apiUrl + `?name=${cityName.toLowerCase()}`
     const response = await axios(requestUrl).catch((error) => logs.write(this.getErrorText(error)))
-    console.log(requestUrl)
+
     let geocodeData = {
       name: "",
       latitude: 0,
@@ -23,10 +23,9 @@ class GeocodeAPI {
       
       results.forEach(city => {
         const countryCode = city.country_code
-
-        if (countryCode === "RU") {
+        
+        if (countryCode === "RU" && geocodeData.name === "") {
           geocodeData = city
-          return
         }
       })
     }
