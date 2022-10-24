@@ -10,6 +10,7 @@ class ClothesConstructor {
   }
 
   private getClothesByWeather = (weatherName: string): string => {
+    weatherName = weatherName.toLowerCase()
     let result = "На погоду не стоит обращать большого внимания ⛅️"
 
     if (weatherName.includes("морось")) {
