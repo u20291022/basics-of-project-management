@@ -1,5 +1,6 @@
 import { Telegram } from "telegraf"
 import { CityCommandData } from "./interfaces"
+import { logs } from "./logs"
 import { settings } from "./settings"
 import { weatherCommand } from "./weather-command"
 
@@ -11,6 +12,7 @@ class CityCommand {
     const correctUsage = this.isCorrectUsage(firstArgument)
 
     if (correctUsage) {
+      logs.write(`${firstName} from ${chatId} chat changed city to ${firstArgument}`)
       cityText = this.getSuccessText(firstName, firstArgument)
 
       settings.setParameter(chatId, "city", firstArgument)

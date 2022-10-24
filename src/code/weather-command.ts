@@ -1,4 +1,5 @@
 import { Telegram } from "telegraf"
+import { clothesConstructor } from "./clothes-constructor"
 import { geocodeAPI } from "./geocode-api"
 import { settings } from "./settings"
 import { weatherAPI } from "./weather-api"
@@ -27,7 +28,9 @@ class WeatherCommand {
         `🌡 Температура: ${weatherData.temperature}°C\n` +
         `💨 Скорость ветра: ${weatherData.windspeed} км/ч\n` +
         `☁️ Погода: ${weatherData.weathername}\n` +
-        `📄 Код погоды: ${weatherData.weathercode}`
+        `📄 Код погоды: ${weatherData.weathercode}\n` +
+        `\n🧥 Советы по одежде, которую стоит надеть сегодня:\n` +
+        clothesConstructor.getClothesText(weatherData)
     } else {
       weatherText = `Произошла ошибка 😬\n` + 
         `Город "${cityName}" неопределен.`

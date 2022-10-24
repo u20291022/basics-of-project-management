@@ -8,7 +8,7 @@ class GeocodeAPI {
 
   public getCityGeocode = async (cityName: string): Promise<GeocodeData> => {
     cityName = cyrillicTranslator.transliterateToEnglish(cityName)
-    
+
     const requestUrl = this.apiUrl + `?name=${cityName.toLowerCase()}`
     const response = await axios(requestUrl).catch((error) => logs.write(this.getErrorText(error)))
 
