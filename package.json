@@ -6,7 +6,6 @@
   "version": "1.0.0",
   "description": "Project for the discipline \"Fundamentals of project management",
   "main": "index.ts",
-  "author": "ilunatrius",
   "license": "MIT",
   "private": true,
   "dependencies": {
